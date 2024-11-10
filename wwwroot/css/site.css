@@ -1,0 +1,143 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    background-color: #DFF5FF;
+    padding-top: 10px;
+    color: black;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .sidebar .nav-link {
+        color: #000000;
+        margin-bottom: 10px;
+    }
+
+        .sidebar .nav-link:hover {
+            background-color: #2b4b75;
+            color: #ffffff;
+        }
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.content {
+    transition: all 0.3s ease;
+}
+
+    .content.shifted {
+        margin-left: 300px;
+    }
+
+.navbar {
+    width: 100%;
+    background-color: #24324a;
+    color: #ffffff;
+    position: relative;
+    z-index: 2000;
+}
+
+.navbar-brand {
+    color: #ffffff;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar .nav-item .nav-link:hover {
+    color: #cccccc !important;
+}
+
+.sidebar .dropdown-menu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-top: 0;
+    background-color: #ffffff;
+    border-radius: 0.25rem;
+    z-index: 1050;
+    display: none;
+}
+
+.sidebar .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-toggle-icon {
+    float: right;
+    margin-right: 5px;
+}
+
+footer {
+    position: relative;
+    margin-top: 20px;
+    padding: 10px 0;
+    width: 100%;
+    background: #f8f9fa;
+}
+
+
+/* Contenedor con scroll horizontal */
+.table-container {
+    max-width: 100%; /* Asegura que el contenedor no exceda el ancho de la pantalla */
+    overflow-x: auto; /* Agrega scroll horizontal */
+    border: 1px solid #ddd; /* Borde para el cuadro */
+    padding: 10px; /* Espacio entre el borde del cuadro y la tabla */
+    background-color: #f8f9fa; /* Fondo gris claro para el cuadro */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+    /* Tabla con ancho fijo */
+    .table-container table {
+        width: 1000px; /* Ajusta el ancho fijo de la tabla según sea necesario */
+       
+        border-collapse: collapse; /* Bordes colapsados para un mejor diseño */
+    }
+
+    /* Estilos para las celdas */
+    .table-container th, .table-container td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd; /* Bordes ligeros entre celdas */
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    }
