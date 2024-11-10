@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Gestion Del Presupuesto.props" />
+</Project>
