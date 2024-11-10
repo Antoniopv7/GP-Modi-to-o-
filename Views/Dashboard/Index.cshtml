@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Presupuesto General</h3>
+        <div>
+            <!-- Reemplazar con gráfico o valor total -->
+            <p>Total Presupuesto: $@ViewBag.PresupuestoTotal</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Convenios por Carrera</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Carrera</th>
+                    <th>Total Convenios</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.ConveniosPorCarrera)
+                {
+                    <tr>
+                        <td>@item.Carrera</td>
+                        <td>@item.Cantidad</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h3>Campos Clínicos por Carrera</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Carrera</th>
+                    <th>Total Campos Clínicos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.CamposPorCarrera)
+                {
+                    <tr>
+                        <td>@item.Carrera</td>
+                        <td>@item.Cantidad</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

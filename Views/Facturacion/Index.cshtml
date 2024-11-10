@@ -1,0 +1,73 @@
+﻿model IEnumerable<Gestion_Del_Presupuesto.Models.FacturacionModel>
+
+<h1>Lista de Facturaciones</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Registrar Nueva Facturación</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Razón Social</th>
+            <th>RUT</th>
+            <th>Giro</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Receptor de Documento</th>
+            <th>Cargo</th>
+            <th>Teléfono de Receptor</th>
+            <th>Correo Electrónico</th>
+            <th>Sede</th>
+            <th>Carrera</th>
+            <th>Nivel Formación</th>
+            <th>Institución</th>
+            <th>Tiempo de Práctica</th>
+            <th>N° mes/día/semana/hora</th>
+            <th>N° Alumnos</th>
+            <th>Fecha UF Día</th>
+            <th>Valor UF Día</th>
+            <th>Valor 3 UF mes/práctica profesional</th>
+            <th>Valor UF</th>
+            <th>Subtotal</th>
+            <th>Total Estudiantes</th>
+            <th>Neto UF</th>
+            <th>Total a Pagar</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RazonSocial</td>
+                <td>@item.RUT</td>
+                <td>@item.Giro</td>
+                <td>@item.Direccion</td>
+                <td>@item.Telefono</td>
+                <td>@item.ReceptorDocumento</td>
+                <td>@item.Cargo</td>
+                <td>@item.TelefonoReceptor</td>
+                <td>@item.CorreoElectronico</td>
+                <td>@item.Sede</td>
+                <td>@item.Carrera</td>
+                <td>@item.NivelFormacion</td>
+                <td>@item.Institucion</td>
+                <td>@item.TiempoPractica</td>
+                <td>@item.NumeroTiempo</td>
+                <td>@item.NumeroAlumnos</td>
+                <td>@item.FechaUFDia.ToShortDateString()</td>
+                <td>@item.ValorUFDia</td>
+                <td>@item.ValorUFMesPractica</td>
+                <td>@item.ValorUF</td>
+                <td>@item.Subtotal</td>
+                <td>@item.TotalEstudiantes</td>
+                <td>@item.NetoUF</td>
+                <td>@item.TotalaPagar</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id_Facturacion" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id_Facturacion" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id_Facturacion" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

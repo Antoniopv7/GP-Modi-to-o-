@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ConvenioModel>
+
+<h1>Registro de Convenios Históricos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre Institución</th>
+            <th>Tipo</th>
+            <th>Sede</th>
+            <th>Acciones</th> <!-- Columnas para restaurar o eliminar definitivamente -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var convenio in Model)
+        {
+            <tr>
+                <td>@convenio.Id_Convenio</td>
+                <td>@convenio.Nombre</td>
+                <td>@convenio.Tipo_Convenio</td>
+                <td>@convenio.Sede</td>
+                <td>
+                    <!-- Botón para restaurar el convenio -->
+                    <a asp-action="Restore" asp-route-id="@convenio.Id_Convenio" class="btn btn-success btn-sm">Restaurar</a>
+
+                    <!-- Botón para eliminar definitivamente el convenio -->
+                    <button class="btn btn-danger btn-sm" onclick="openDeleteModal('@Url.Action("DeletePermanent", "Convenio", new { id = convenio.Id_Convenio })')">Eliminar Definitivamente</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" asp-action="Index">Volver a la lista</a>
+
+<!-- Modal de confirmación para eliminar definitivamente -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Eliminar Convenio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea eliminar definitivamente este convenio? Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a id="deleteConfirmButton" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openDeleteModal(deleteUrl) {
+        document.getElementById('deleteConfirmButton').setAttribute('href', deleteUrl);
+        $('#confirmDeleteModal').modal('show');
+    }
+</script>

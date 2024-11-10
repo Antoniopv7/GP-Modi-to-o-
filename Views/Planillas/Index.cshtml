@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.PlanillasModel>
+
+<h1>Lista de Planillas</h1>
+<div>
+    <form method="get">
+        <p>
+            <a asp-action="Upload" class="btn btn-secondary">Subir Planillas</a>
+        </p>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Asignatura</th>
+            <th>Institución</th>
+            <th>Nombre</th>
+            <th>Rut</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Término</th>
+            <th>Cantidad de Horas</th>
+            <th>Cantidad de Días</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Asignatura</td>
+                <td>@item.Institución</td>
+                <td>@item.Nombre</td>
+                <td>@item.Rut</td>
+                <td>@item.Fecha_Inicio.ToShortDateString()</td>
+                <td>@item.Fecha_Termino.ToShortDateString()</td>
+                <td>@item.CantidadHoras</td>
+                <td>@item.CantDias</td>
+                <td>@item.Observaciones</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id_Planillas" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id_Planillas" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id_Planillas" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

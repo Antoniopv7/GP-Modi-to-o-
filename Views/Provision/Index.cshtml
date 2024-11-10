@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.ProvisionModel>
+
+@{
+    ViewData["Title"] = "Listado de Provisiones";
+}
+
+<h2>Listado de Provisiones</h2>
+
+<div>
+    <p><strong>Presupuesto Total Inicial:</strong> @ViewBag.PresupuestoTotalInicial.ToString("C")</p>
+    <p><strong>Total Gastado Hasta el Momento:</strong> @ViewBag.TotalGastado.ToString("C")</p>
+    <p><strong>Presupuesto Restante:</strong> @ViewBag.PresupuestoRestante.ToString("C")</p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Nombre Sede</th>
+            <th>Nombre Campo Clínico</th>
+            <th>Número</th>
+            <th>Tipo de Gasto</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var provision in Model)
+        {
+            <tr>
+                <td>@provision.Fecha.ToShortDateString()</td>
+                <td>@provision.NombreSede</td>
+                <td>@provision.NombreCampoClinico</td>
+                <td>@provision.Numero</td>
+                <td>@provision.TipoGasto</td>
+                <td>@provision.Descripcion</td>
+                <td>@provision.Monto.ToString("C")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@provision.Id" class="btn btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@provision.Id" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Crear Nueva Provisión</a>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

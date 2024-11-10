@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.Pago>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Registrar Pago</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaVencimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Monto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id_Retribucion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Convenios)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id_Retribucion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id_Pago">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_Pago">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id_Pago">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

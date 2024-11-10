@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.Historial_Actividad>
+
+@{
+    ViewData["Title"] = "Historial de Transacciones";
+}
+
+<h2>Historial de Transacciones</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Acción</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var actividad in Model)
+        {
+            <tr>
+                <td>@actividad.Usuarios.Nombre</td>
+                <td>@actividad.Accion</td>
+                <td>@actividad.Fecha.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

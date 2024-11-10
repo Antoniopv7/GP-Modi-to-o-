@@ -1,0 +1,330 @@
+﻿@model Gestion_Del_Presupuesto.Models.ConvenioModel
+
+<div class="container">
+    <h2 class="text-center mb-4">Registrar Convenio</h2>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <!-- Datos del Convenio -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Nombre" class="form-label">Nombre Institución</label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Rut" class="form-label">RUT</label>
+                    <input asp-for="Rut" class="form-control" />
+                    <span asp-validation-for="Rut" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Sede" class="form-label">Sede</label>
+                    <select asp-for="Sede" class="form-control">
+                        <option value="">Selecciona una Sede</option>
+                        @foreach (var sede in ViewBag.Sedes)
+                        {
+                            <option value="@sede">@sede</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Sede" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Tipo_Convenio" class="form-label">Tipo de Convenio</label>
+                    <select asp-for="Tipo_Convenio" class="form-control">
+                        <option value="">Selecciona un Tipo</option>
+                        <option value="HOSPITALES / CLINICAS">HOSPITALES / CLINICAS</option>
+                        <option value="ATENCION PRIMARIA">ATENCION PRIMARIA</option>
+                        <option value="Hogares / C.Educacionales">Hogares / C.Educacionales</option>
+                        <option value="LAB/IMAGEN/OFTA">LAB/IMAGEN/OFTA</option>
+                        <option value="CENTROS Y FUNDACIONES">CENTROS Y FUNDACIONES</option>
+                        <option value="CASINOS">CASINOS</option>
+                    </select>
+                    <span asp-validation-for="Tipo_Convenio" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Direccion" class="form-label">Dirección</label>
+                    <input asp-for="Direccion" class="form-control" />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="ContactoPrincipal" class="form-label">Contacto Principal</label>
+                    <input asp-for="ContactoPrincipal" class="form-control" />
+                    <span asp-validation-for="ContactoPrincipal" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Telefono" class="form-label">Teléfono</label>
+                    <input asp-for="Telefono" class="form-control" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="ValorUF" class="form-label">Valor UF</label>
+                    <input asp-for="ValorUF" class="form-control" />
+                    <span asp-validation-for="ValorUF" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Fecha_Inicio" class="form-label">Fecha de Inicio</label>
+                    <input asp-for="Fecha_Inicio" type="date" class="form-control" />
+                    <span asp-validation-for="Fecha_Inicio" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="Fecha_Termino" class="form-label">Fecha de Término</label>
+                    <input asp-for="Fecha_Termino" type="date" class="form-control" />
+                    <span asp-validation-for="Fecha_Termino" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-check mb-4">
+            <input type="checkbox" asp-for="RenovacionAutomatica" class="form-check-input" id="RenovacionAutomatica" />
+            <label asp-for="RenovacionAutomatica" class="form-check-label">Renovable automáticamente</label>
+        </div>
+
+        <!-- Sección de Retribuciones -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title">Retribuciones</h4>
+            </div>
+            <div class="card-body">
+                <div id="retribucionesContainer">
+                    <div class="form-group retribucion-item mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Tipo de Retribución</label>
+                                <select asp-for="Retribuciones[0].Tipo_Retribucion" class="form-control">
+                                    <option value="">Selecciona un Tipo</option>
+                                    @foreach (var tipo in ViewBag.TiposRetribucion)
+                                    {
+                                        <option value="@tipo">@tipo</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Monto en UF</label>
+                                <input asp-for="Retribuciones[0].Monto" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Cantidad en Pesos</label>
+                                <input asp-for="Retribuciones[0].CantPesos" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Periodo</label>
+                                <select name="Retribuciones[0].Periodo" class="form-control">
+                                    <option value="Hora">por Hora</option>
+                                    <option value="Diario">por Día</option>
+                                    <option value="Semanal">por Semana</option>
+                                    <option value="Mensual">por Mes</option>
+                                    <option value="Anual">por Año</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <label>Tipo de Práctica</label>
+                                <select name="Retribuciones[0].Tipo_Practica" class="form-control">
+                                    <option value="1">Práctica Profesional</option>
+                                    <option value="2">Práctica Curricular</option>
+                                    <option value="3">Todas las Prácticas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Observaciones</label>
+                                <input asp-for="Retribuciones[0].DetalleOtrosGastos" class="form-control" />
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="button" class="btn btn-danger" onclick="eliminarElemento(this)">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary mt-3" onclick="agregarElemento()">Agregar Retribución</button>
+            </div>
+        </div>
+
+        <!-- Sección de Centros de Salud -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title">Centros de Salud Asociados</h4>
+            </div>
+            <div class="card-body">
+                <div id="centrosSaludContainer">
+                    <div class="form-group centro-item mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Nombre del Centro</label>
+                                <input name="CentrosDeSalud[0].NombreCentro" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Dirección</label>
+                                <input name="CentrosDeSalud[0].Direccion" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Contacto</label>
+                                <input name="CentrosDeSalud[0].NombrecargocentroAso" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Correo</label>
+                                <input name="CentrosDeSalud[0].CorreoPersonaCargo" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <label>Teléfono</label>
+                                <input name="CentrosDeSalud[0].Telefono_CentroAso" class="form-control" />
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="button" class="btn btn-danger" onclick="eliminarElemento(this)">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary mt-3" onclick="agregarCentroSalud()">Agregar Centro de Salud</button>
+            </div>
+        </div>
+
+        <!-- Botón para Guardar -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success btn-lg">Guardar Convenio</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    let contadorRetribuciones = 1;
+    function agregarElemento() {
+        const container = document.getElementById('retribucionesContainer');
+        const index = container.children.length;
+        const newItem = document.createElement('div');
+        newItem.className = 'form-group retribucion-item mb-4';
+        newItem.innerHTML = `
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Tipo de Retribución</label>
+                    <select name="Retribuciones[${index}].Tipo_Retribucion" class="form-control">
+                        <option value="">Selecciona un Tipo</option>
+                        <option value="Pago por Uso de CC $$">Pago por Uso de CC $$</option>
+                        <option value="Pago Apoyo a la Docencia">Pago Apoyo a la Docencia</option>
+                        <option value="Pago en RRHH">Pago en RRHH</option>
+                        <option value="Capacitación">Capacitación</option>
+                        <option value="Obras Menores">Obras Menores</option>
+                        <option value="Obras Mayores">Obras Mayores</option>
+                        <option value="Otros Gastos x retribución">Otros Gastos x retribución</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Monto en UF</label>
+                    <input type="number" name="Retribuciones[${index}].Monto" class="form-control" step="0.01" />
+                </div>
+                <div class="col-md-3">
+                    <label>Cantidad en Pesos</label>
+                    <input type="number" name="Retribuciones[${index}].CantPesos" class="form-control" step="0.01" />
+                </div>
+                <div class="col-md-3">
+                    <label>Periodo</label>
+                    <select name="Retribuciones[${index}].Periodo" class="form-control">
+                        <option value="Hora">por Hora</option>
+                        <option value="Diario">por Día</option>
+                        <option value="Semanal">por Semana</option>
+                        <option value="Mensual">por Mes</option>
+                        <option value="Anual">por Año</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <label>Tipo de Práctica</label>
+                    <select name="Retribuciones[${index}].Tipo_Practica" class="form-control">
+                        <option value="1">Práctica Profesional</option>
+                        <option value="2">Práctica Curricular</option>
+                        <option value="3">Todas las Prácticas</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Observaciones</label>
+                    <input type="text" name="Retribuciones[${index}].DetalleOtrosGastos" class="form-control" />
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="button" class="btn btn-danger" onclick="eliminarElemento(this)">Eliminar</button>
+                </div>
+            </div>`;
+        container.appendChild(newItem);
+        contadorRetribuciones++;
+    }
+
+    let contadorCentros = 1;
+    function agregarCentroSalud() {
+        const container = document.getElementById('centrosSaludContainer');
+        const index = container.children.length;
+        const newCentro = `
+            <div class="form-group centro-item mb-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Nombre del Centro</label>
+                        <input name="CentrosDeSalud[${index}].NombreCentro" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Dirección</label>
+                        <input name="CentrosDeSalud[${index}].Direccion" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Contacto</label>
+                        <input name="CentrosDeSalud[${index}].NombrecargocentroAso" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <label>Correo</label>
+                        <input name="CentrosDeSalud[${index}].CorreoPersonaCargo" class="form-control" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label>Teléfono</label>
+                        <input name="CentrosDeSalud[${index}].Telefono_CentroAso" class="form-control" />
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-danger" onclick="eliminarElemento(this)">Eliminar</button>
+                    </div>
+                </div>
+            </div>`;
+        container.insertAdjacentHTML('beforeend', newCentro);
+        contadorCentros++;
+    }
+
+    function eliminarElemento(button) {
+        const item = button.closest('.form-group');
+        if (item) item.remove();
+    }
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

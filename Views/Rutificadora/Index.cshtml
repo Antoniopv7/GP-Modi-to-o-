@@ -1,0 +1,44 @@
+﻿@model List<Gestion_Del_Presupuesto.Models.RutificadoraModel>
+
+@{
+    ViewData["Title"] = "Listado de Rutificadoras";
+}
+
+<h2>Listado de Rutificadoras</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Asignatura</th>
+            <th>Institución</th>
+            <th>Nombre Completo</th>
+            <th>RUT</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Término</th>
+            <th>Número de Días</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Asignatura</td>
+                <td>@item.Institucion</td>
+                <td>@item.NombreCompleto</td>
+                <td>@item.RUT</td>
+                <td>@item.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@item.FechaTermino.ToString("dd/MM/yyyy")</td>
+                <td>@item.NumeroDias</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id_Rutificadora">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id_Rutificadora">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id_Rutificadora">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Crear Nueva Rutificadora</a>
+

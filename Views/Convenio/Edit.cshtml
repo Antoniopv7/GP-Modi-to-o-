@@ -1,0 +1,171 @@
+﻿@model Gestion_Del_Presupuesto.Models.ConvenioModel
+
+<div class="container">
+    <h2 class="text-center mb-4">Editar Convenio</h2>
+    <form asp-action="Edit" method="post">
+        <!-- Datos del Convenio -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <input type="hidden" asp-for="Id_Convenio" /> <!-- Campo oculto para el Id del convenio -->
+
+                <div class="form-group mb-4">
+                    <label asp-for="Sede"></label>
+                    <select asp-for="Sede" class="form-control">
+                        <option value="">Selecciona una Sede</option>
+                        @foreach (var sede in ViewBag.Sedes)
+                        {
+                            <option value="@sede" selected="@(Model.Sede == sede ? "selected" : null)">@sede</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Tipo_Convenio"></label>
+                    <select asp-for="Tipo_Convenio" class="form-control">
+                        <option value="">Selecciona un Tipo</option>
+                        @foreach (var tipo in ViewBag.TiposConvenio)
+                        {
+                            <option value="@tipo" selected="@(Model.Tipo_Convenio == tipo ? "selected" : null)">@tipo</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Rut"></label>
+                    <input asp-for="Rut" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Direccion"></label>
+                    <input asp-for="Direccion" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="ContactoPrincipal"></label>
+                    <input asp-for="ContactoPrincipal" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Telefono"></label>
+                    <input asp-for="Telefono" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Fecha_Inicio"></label>
+                    <input asp-for="Fecha_Inicio" type="date" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="Fecha_Termino"></label>
+                    <input asp-for="Fecha_Termino" type="date" class="form-control" />
+                </div>
+                <div class="form-group mb-4">
+                    <input type="checkbox" asp-for="RenovacionAutomatica" id="RenovacionAutomatica" />
+                    <label for="RenovacionAutomatica">Renovable automáticamente por períodos iguales o sucesivos de un año</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Retribuciones -->
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h4 class="mb-3 text-center">Retribuciones</h4>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div id="retribucionesContainer">
+                            @for (int i = 0; i < Model.Retribuciones.Count; i++)
+                            {
+                                <div class="form-group retribucion-item mt-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2">
+                                            <label>Tipo de Retribución</label>
+                                            <select asp-for="Retribuciones[@i].Tipo_Retribucion" class="form-control">
+                                                <option value="">Selecciona un Tipo</option>
+                                                @foreach (var tipo in ViewBag.TiposRetribucion)
+                                                {
+                                                    <option value="@tipo" selected="@(Model.Retribuciones[i].Tipo_Retribucion == tipo ? "selected" : null)">@tipo</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label asp-for="Retribuciones[@i].UFTotal">Cantidad UF</label>
+                                            <input asp-for="Retribuciones[@i].UFTotal" class="form-control" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label asp-for="Retribuciones[@i].CantPesos">Cantidad Pesos</label>
+                                            <input asp-for="Retribuciones[@i].CantPesos" class="form-control" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label>Periodo</label>
+                                            <select asp-for="Retribuciones[@i].Periodo" class="form-control">
+                                                <option value="Hora">Hora</option>
+                                                <option value="Diario">Diario</option>
+                                                <option value="Semanal">Semanal</option>
+                                                <option value="Mensual">Mensual</option>
+                                                <option value="Anual">Anual</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label asp-for="Retribuciones[@i].DetalleOtrosGastos">Observaciones</label>
+                                            <input asp-for="Retribuciones[@i].DetalleOtrosGastos" class="form-control" />
+                                        </div>
+                                        <div class="col-md-2 d-flex align-items-end">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarElemento(this)">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm mt-3" onclick="agregarElemento()">Agregar Retribución</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Centros de Salud Asociados -->
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h4 class="mb-3 text-center">Centros de Salud Asociados</h4>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div id="centrosSaludContainer">
+                            @for (int i = 0; i < Model.CentrosDeSalud.Count; i++)
+                            {
+                                <div class="form-group centro-item mt-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-3">
+                                            <label>Nombre del Centro</label>
+                                            <input asp-for="CentrosDeSalud[@i].NombreCentro" placeholder="Nombre del Centro" class="form-control mb-2" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Dirección</label>
+                                            <input asp-for="CentrosDeSalud[@i].Direccion" placeholder="Dirección del Centro" class="form-control mb-2" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Contacto</label>
+                                            <input asp-for="CentrosDeSalud[@i].NombrecargocentroAso" placeholder="Contacto del Centro" class="form-control mb-2" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Correo</label>
+                                            <input asp-for="CentrosDeSalud[@i].CorreoPersonaCargo" placeholder="Correo del Contacto" class="form-control mb-2" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Teléfono</label>
+                                            <input asp-for="CentrosDeSalud[@i].Telefono_CentroAso" placeholder="Teléfono del Contacto" class="form-control mb-2" />
+                                        </div>
+                                        <div class="col-md-2 d-flex align-items-end">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarElemento(this)">Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <button type="button" class="btn btn-secondary mt-3" onclick="agregarCentroSalud()">Agregar Centro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para Guardar -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Guardar Cambios</button>
+        </div>
+    </form>
+</div>

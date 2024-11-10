@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Gestión de Campos Clínicos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="btn btn-dark me-2" id="menu-toggle">Menu
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Gestión del Presupuesto de Campos Clínicos Universidad Central</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="Login">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Register">Registrarse</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn text-black" id="close-btn">&times;</span>
+        <div class="logo-container text-center py-5">
+            <img src="~/images/ucn_logo.png" alt="Logo Universidad Central" style="width: 60%;" />
+        </div>
+
+        <ul class="nav flex-column p-2">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/">Inicio</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Historial De Usuario" asp-action="Historial">Auditoría</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Convenios <span class="dropdown-toggle-icon">▼</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="Convenio" asp-action="Index">Listado de Convenios</a></li>
+                    <li><a class="dropdown-item" asp-controller="Convenio" asp-action="Create">Registrar Convenios</a></li>
+                    <li><a class="dropdown-item" asp-controller="Convenio" asp-action="Papelera">Registro de Convenios Históricos</a></li>
+                    <li><a class="dropdown-item" asp-controller="Convenio" asp-action="Papelera">Documento Certificación</a></li>
+                </ul>
+            </li>
+           
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Cordinación <span class="dropdown-toggle-icon">▼</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="Planillas" asp-action="Index">Listado Planillas</a></li>
+                    <li><a class="dropdown-item" asp-controller="Planillas" asp-action="Upload">Subir Planilla</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Finanzas <span class="dropdown-toggle-icon">▼</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="Devengado" asp-action="Index">Listado Finanzas</a></li>
+                    <li><a class="dropdown-item" asp-controller="Devengado" asp-action="Index">Devengados</a></li>
+                    <li><a class="dropdown-item" asp-controller="Costos" asp-action="Index">Registrar Costos</a></li>
+                    <li><a class="dropdown-item" asp-controller="Devengado" asp-action="Index">Registro</a></li>
+                </ul>
+            </li>
+           
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Documentos de Facturación <span class="dropdown-toggle-icon">▼</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="Facturacion" asp-action="Index">Listado Facturación</a></li>
+                    <li><a class="dropdown-item" asp-controller="Facturacion" asp-action="Create">Registrar Factura</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Pagos <span class="dropdown-toggle-icon">▼</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="Pagos" asp-action="Index">Ver Pagos</a></li>
+                    <li><a class="dropdown-item" asp-controller="Pagos" asp-action="Create">Registrar Pago</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#">Presupuesto <span class="dropdown-toggle-icon">▼</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-controller="Presupuesto" asp-action="Index">Listado Consolidado x centro Costo</a></li>
+                    <li><a class="dropdown-item" asp-controller="Presupuesto" asp-action="Create">Registrar</a></li>
+                    <li><a class="dropdown-item" asp-controller="Provision" asp-action="Index">Listado Provisión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="content" id="main-content">
+        <div class="container-fluid mt-4">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 - Gestión de Campos Clínicos Universidad Central</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Controlar la visibilidad del sidebar
+        document.getElementById("menu-toggle").addEventListener("click", function () {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("main-content");
+            sidebar.classList.toggle("show");
+            content.classList.toggle("shifted");
+        });
+
+        // Botón para cerrar el sidebar
+        document.getElementById("close-btn").addEventListener("click", function () {
+            var sidebar = document.getElementById("sidebar");
+            var content = document.getElementById("main-content");
+            sidebar.classList.remove("show");
+            content.classList.remove("shifted");
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,121 @@
+﻿@model Gestion_Del_Presupuesto.Models.ConvenioModel
+
+<h2>Detalles del Convenio</h2>
+
+<h4>Convenio</h4>
+<hr />
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Nombre</th>
+            <td>@Model.Nombre</td>
+        </tr>
+        <tr>
+            <th>Tipo Convenio</th>
+            <td>@Model.Tipo_Convenio</td>
+        </tr>
+        <tr>
+            <th>Sede</th>
+            <td>@Model.Sede</td>
+        </tr>
+        <tr>
+            <th>Teléfono</th>
+            <td>@Model.Telefono</td>
+        </tr>
+        <tr>
+            <th>Rut</th>
+            <td>@Model.Rut</td>
+        </tr>
+        <tr>
+            <th>Dirección</th>
+            <td>@Model.Direccion</td>
+        </tr>
+        <tr>
+            <th>Contacto Principal</th>
+            <td>@Model.ContactoPrincipal</td>
+        </tr>
+        <tr>
+            <th>Fecha de Inicio</th>
+            <td>@Model.Fecha_Inicio.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <th>Fecha de Término</th>
+            <td>@Model.Fecha_Termino?.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <th>Renovación Automática</th>
+            <td>@Model.RenovacionAutomatica</td>
+        </tr>
+    </tbody>
+</table>
+
+<h4>Retribuciones</h4>
+@if (Model.Retribuciones != null && Model.Retribuciones.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tipo de Retribución</th>
+                <th>Valor UF</th>
+                <th>Cantidad Pesos</th>
+                <th>Periodo</th>
+                <th>Tipo Práctica</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var retribucion in Model.Retribuciones)
+            {
+                <tr>
+                    <td>@retribucion.Tipo_Retribucion</td>
+                    <td>@retribucion.UFTotal</td>
+                    <td>@retribucion.CantPesos</td>
+                    <td>@retribucion.Periodo</td>
+                    <td>@retribucion.Tipo_Practica</td>
+                    <td>@(!string.IsNullOrWhiteSpace(retribucion.DetalleOtrosGastos) ? retribucion.DetalleOtrosGastos : "N/A")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay retribuciones asociadas.</p>
+}
+
+<h4>Centros de Salud Asociados</h4>
+@if (Model.CentrosDeSalud != null && Model.CentrosDeSalud.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nombre del Centro</th>
+                <th>Dirección</th>
+                <th>Contacto</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var centro in Model.CentrosDeSalud)
+            {
+                <tr>
+                    <td>@centro.NombreCentro</td>
+                    <td>@centro.Direccion</td>
+                    <td>@centro.NombrecargocentroAso</td>
+                    <td>@centro.CorreoPersonaCargo</td>
+                    <td>@centro.Telefono_CentroAso</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay centros de salud asociados.</p>
+}
+
+<form asp-action="ExportToExcel" method="post">
+    <button type="submit" class="btn btn-success">Exportar a Excel</button>
+    <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+</form>

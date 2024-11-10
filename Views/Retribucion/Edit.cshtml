@@ -1,0 +1,16 @@
+﻿@model Gestion_Del_Presupuesto.Models.RetribucionModel
+
+<h2>Editar Retribución</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id_Retribucion" />
+    <div class="form-group">
+        <label asp-for="Tipo_Retribucion"></label>
+        <input asp-for="Tipo_Retribucion" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Monto"></label>
+        <input asp-for="Monto" class="form-control" type="number" step="0.01" />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>

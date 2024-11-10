@@ -1,0 +1,33 @@
+﻿@model Gestion_Del_Presupuesto.Models.InformeViewModel
+
+@{
+    ViewData["Title"] = "Generar Reporte Financiero";
+}
+
+<h2>Generar Reporte Financiero</h2>
+
+<form asp-action="Generar">
+    <div class="form-group">
+        <label>Tipo de Reporte</label>
+        <select class="form-control" asp-for="TipoReporte">
+            <option value="Proyección de Gastos">Proyección de Gastos</option>
+            <option value="Gastos Devengados">Gastos Devengados</option>
+            <option value="Gastos Ejecutados">Gastos Ejecutados</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Fecha de Inicio</label>
+        <input class="form-control" asp-for="FechaInicio" type="date" />
+    </div>
+    <div class="form-group">
+        <label>Fecha de Fin</label>
+        <input class="form-control" asp-for="FechaFin" type="date" />
+    </div>
+    <div class="form-group">
+        <label>Filtrar por Carrera</label>
+        <input class="form-control" asp-for="Carrera" />
+    </div>
+    <button type="submit" class="btn btn-primary">Generar Informe</button>
+    <button type="button" class="btn btn-secondary" asp-action="ExportarPDF">Exportar a PDF</button>
+</form>
+

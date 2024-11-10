@@ -1,0 +1,45 @@
+﻿@model Gestion_Del_Presupuesto.Models.RutificadoraModel
+
+@{
+    ViewData["Title"] = "Crear Nueva Rutificadora";
+}
+
+<h2>Crear Nueva Rutificadora</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="Asignatura">Asignatura</label>
+        <input type="text" class="form-control" id="Asignatura" name="Asignatura" value="@Model.Asignatura" required />
+    </div>
+    <div class="form-group">
+        <label for="Institucion">Institución</label>
+        <input type="text" class="form-control" id="Institucion" name="Institucion" value="@Model.Institucion" required />
+    </div>
+    <div class="form-group">
+        <label for="NombreCompleto">Nombre Completo (Apellidos, Nombres)</label>
+        <input type="text" class="form-control" id="NombreCompleto" name="NombreCompleto" value="@Model.NombreCompleto" required />
+    </div>
+    <div class="form-group">
+        <label for="RUT">RUT</label>
+        <input type="text" class="form-control" id="RUT" name="RUT" value="@Model.RUT" required />
+    </div>
+    <div class="form-group">
+        <label for="FechaInicio">Fecha de Inicio</label>
+        <input type="date" class="form-control" id="FechaInicio" name="FechaInicio" value="@Model.FechaInicio.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="form-group">
+        <label for="FechaTermino">Fecha de Término</label>
+        <input type="date" class="form-control" id="FechaTermino" name="FechaTermino" value="@Model.FechaTermino.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="form-group">
+        <label for="NumeroDias">Número de Días</label>
+        <input type="number" class="form-control" id="NumeroDias" name="NumeroDias" value="@Model.NumeroDias" required />
+    </div>
+    <div class="form-group">
+        <label for="Observaciones">Observaciones</label>
+        <textarea class="form-control" id="Observaciones" name="Observaciones">@Model.Observaciones</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <h1 class="display-4 text-center">Gestión de Campos Clínicos</h1>
+    <p class="text-center mb-5">Bienvenido a la plataforma de gestión de campos clínicos. Aquí puedes visualizar información general de las actividades y presupuesto de campos clínicos.</p>
+
+    <!-- Sección de tarjetas de dashboard -->
+    <div class="row mb-4">
+        <!-- Tarjeta de Presupuesto Total -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Presupuesto Total</h5>
+                    <p class="card-text display-6 text-success">$1,234,567</p>
+                    <small>+2.5% desde el mes pasado</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Campos Clínicos Activos -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Campos Clínicos Activos</h5>
+                    <p class="card-text display-6">42</p>
+                    <small>En todos los departamentos</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Aprobaciones Pendientes -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Aprobaciones Pendientes</h5>
+                    <p class="card-text display-6 text-warning">7</p>
+                    <small>Requieren su atención</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Facturación Mensual -->
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Facturación Mensual</h5>
+                    <p class="card-text display-6 text-danger">$98,765</p>
+                    <small>-1.2% desde el mes pasado</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Actividad Reciente y Próximos Vencimientos -->
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Actividad Reciente</h5>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <span class="badge bg-primary me-2">Nuevo convenio aprobado</span>
+                    <span>Hospital San Juan - 15 minutos atrás</span>
+                </div>
+                <div class="list-group-item">
+                    <span class="badge bg-success me-2">Pago recibido</span>
+                    <span>Clínica Santa María - 2 horas atrás</span>
+                </div>
+                <div class="list-group-item">
+                    <span class="badge bg-info me-2">Nuevo campo clínico registrado</span>
+                    <span>Centro Médico del Este - 1 día atrás</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h5>Próximos Vencimientos</h5>
+            <div class="list-group">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Renovación de Convenio</span>
+                    <span class="text-danger">En 3 días</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Pago Pendiente</span>
+                    <span class="text-warning">En 1 semana</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Evaluación de Campo Clínico</span>
+                    <span class="text-success">En 2 semanas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

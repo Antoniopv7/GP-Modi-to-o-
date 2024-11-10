@@ -1,0 +1,36 @@
+﻿<!-- Index.cshtml -->
+@model IEnumerable<Gestion_Del_Presupuesto.Models.Costo>
+
+<h1>Lista de Costos</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Registrar Nuevo Costo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Convenio</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Monto</td>
+                <td>@item.Fecha.ToShortDateString()</td>
+                <td>@item.Tipo</td>
+                <td>@item.Convenio?.Nombre</td>
+                <td>@item.Descripcion</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id_Costo" class="btn btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id_Costo" class="btn btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id_Costo" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

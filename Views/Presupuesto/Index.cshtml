@@ -1,0 +1,110 @@
+﻿@model List<Gestion_Del_Presupuesto.Models.PresupuestoModel>
+
+@{
+    ViewData["Title"] = "Listado de Presupuestos";
+    var sedes = ViewBag.Sedes as List<string> ?? new List<string> { "Santiago", "Coquimbo","Ambas" }; // Asegúrate de inicializar las sedes
+    var conveniosPorSede = ViewBag.ConveniosPorSede as Dictionary<string, List<string>> ?? new Dictionary<string, List<string>>();
+    var carreraActual = ViewData["CarreraActual"] as string ?? "";
+    var sedeActual = ViewData["SedeActual"] as string ?? "";
+    var anioActual = ViewData["AnioActual"] as int?;
+    var convenioActual = ViewData["ConvenioActual"] as string ?? "";
+}
+
+<h2>Listado de Presupuestos</h2>
+
+<form method="get" class="form-inline mb-4">
+    <div class="form-group">
+        <label for="carrera">Carrera:</label>
+        <input type="text" id="carrera" name="carrera" value="@carreraActual" class="form-control ml-2" placeholder="Buscar por carrera" />
+    </div>
+
+    <div class="form-group ml-4">
+        <label for="sede">Sede:</label>
+        <select id="sede" name="sede" class="form-control ml-2" onchange="this.form.submit()">
+            <option value="">Todas las Sedes</option>
+            @foreach (var sede in sedes)
+            {
+                @if (sedeActual == sede)
+                {
+                    <option value="@sede" selected>@sede</option>
+                }
+                else
+                {
+                    <option value="@sede">@sede</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group ml-4">
+        <label for="convenio">Convenio:</label>
+        <select id="convenio" name="convenio" class="form-control ml-2" onchange="this.form.submit()">
+            <option value="">Todos los Convenios</option>
+            @if (!string.IsNullOrWhiteSpace(sedeActual) && conveniosPorSede.ContainsKey(sedeActual))
+            {
+                foreach (var convenio in conveniosPorSede[sedeActual])
+                {
+                    @if (convenioActual == convenio)
+                    {
+                        <option value="@convenio" selected>@convenio</option>
+                    }
+                    else
+                    {
+                        <option value="@convenio">@convenio</option>
+                    }
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group ml-4">
+        <label for="year">Año:</label>
+        <select id="year" name="year" class="form-control ml-2" onchange="this.form.submit()">
+            <option value="">Todos</option>
+            @for (int anio = DateTime.Now.Year - 5; anio <= DateTime.Now.Year + 5; anio++)
+            {
+                @if (anioActual.HasValue && anioActual.Value == anio)
+                {
+                    <option value="@anio" selected>@anio</option>
+                }
+                else
+                {
+                    <option value="@anio">@anio</option>
+                }
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary ml-4">Buscar</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Carrera</th>
+                <th>Sede</th>
+                <th>Convenio</th>
+                <th>Año</th>
+                <!-- Agrega más encabezados según sea necesario -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Carrera</td>
+                    <td>@item.Sede</td>
+                    <td>@item.Convenio</td>
+                    <td>@item.Anio</td>
+                    <!-- Agrega más celdas según sea necesario -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No se encontraron resultados.</p>
+}

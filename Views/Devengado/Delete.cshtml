@@ -1,0 +1,47 @@
+﻿@model Gestion_Del_Presupuesto.Models.Devengado
+
+<h1>Eliminar Devengado</h1>
+
+<h3>¿Estás seguro que deseas eliminar este Devengado?</h3>
+<div>
+    <h4>Devengado</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Carrera
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Carrera
+        </dd>
+        <dt class="col-sm-2">
+            Centro de Costo
+        </dt>
+        <dd class="col-sm-10">
+            @Model.CentroCosto
+        </dd>
+        <dt class="col-sm-2">
+            Ítem Presupuestario
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Itempresupuestario
+        </dd>
+        <dt class="col-sm-2">
+            Fecha Inicio
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FechaInicio.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            Fecha Fin
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FechaFin.ToShortDateString()
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="Id_Devengado" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

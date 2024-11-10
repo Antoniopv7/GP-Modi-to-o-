@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.ProvisionModel>
+
+@{
+    ViewData["Title"] = "Reporte de Provisiones";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Campo Clínico</th>
+            <th>Convenio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Monto</td>
+                    <td>@item.Fecha.ToString("yyyy-MM-dd")</td>
+                    <td>@item.NombreCampoClinico</td>
+                    <td>@item.TipoGasto</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No hay provisiones disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Agregar Provisión</a>
+</p>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
