@@ -23,10 +23,8 @@ namespace Gestion_Del_Presupuesto.Data
         public DbSet<FacturacionModel> Facturacion { get; set; }
         public DbSet<CentroSaludModel> CentrosDeSalud { get; set; }
         public DbSet<ProvisionModel> Provision { get; set; }
-
         public DbSet<PlanillasModel> Planillas { get; set; }
         public DbSet<IndicadorEconomico> IndicadorEcono { get; set; }
-
         public DbSet<SeriesData> SerieDatas { get; set; }
         public DbSet<ObsData> ObsDatas { get; set; }
 
@@ -45,23 +43,38 @@ namespace Gestion_Del_Presupuesto.Data
 
         private void ConvertDatesToUtc()
         {
-            foreach (var entry in ChangeTracker.Entries()
-                 .Where(e => e.Entity is ConvenioModel && (e.State == EntityState.Added || e.State == EntityState.Modified)))
+            foreach (var entry in ChangeTracker.Entries())
             {
-                var convenio = (ConvenioModel)entry.Entity;
-
-                convenio.Fecha_Inicio = DateTime.SpecifyKind(convenio.Fecha_Inicio, DateTimeKind.Utc);
-                if (convenio.Fecha_Termino.HasValue)
+                if (entry.Entity is ConvenioModel convenio &&
+                    (entry.State == EntityState.Added || entry.State == EntityState.Modified))
                 {
-                    convenio.Fecha_Termino = DateTime.SpecifyKind(convenio.Fecha_Termino.Value, DateTimeKind.Utc);
+                    // Convertir Fecha_Inicio y Fecha_Termino a UTC
+                    convenio.Fecha_Inicio = DateTime.SpecifyKind(convenio.Fecha_Inicio, DateTimeKind.Utc);
+                    if (convenio.Fecha_Termino.HasValue)
+                    {
+                        convenio.Fecha_Termino = DateTime.SpecifyKind(convenio.Fecha_Termino.Value, DateTimeKind.Utc);
+                    }
+
+                    // Convertir FechaRetribucion en cada Retribucion
+                    if (convenio.Retribuciones != null)
+                    {
+                        foreach (var retribucion in convenio.Retribuciones)
+                        {
+                            retribucion.FechaRetribucion = DateTime.SpecifyKind(retribucion.FechaRetribucion, DateTimeKind.Utc);
+                        }
+                    }
                 }
 
-                if (convenio.Retribuciones != null)
+                if (entry.Entity is FacturacionModel facturacion &&
+                    (entry.State == EntityState.Added || entry.State == EntityState.Modified))
                 {
-                    foreach (var retribucion in convenio.Retribuciones)
+                    // Convertir FechaUFDia a UTC
+                    if (facturacion.FechaUFDia.Kind == DateTimeKind.Unspecified)
                     {
-                        retribucion.FechaRetribucion = DateTime.SpecifyKind(retribucion.FechaRetribucion, DateTimeKind.Utc);
+                        facturacion.FechaUFDia = DateTime.SpecifyKind(facturacion.FechaUFDia, DateTimeKind.Utc);
                     }
+
+                    // Agregar aquí conversiones adicionales si tienes otros DateTime en FacturacionModel
                 }
             }
         }
