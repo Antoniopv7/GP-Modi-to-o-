@@ -1,9 +1,24 @@
-﻿model IEnumerable<Gestion_Del_Presupuesto.Models.FacturacionModel>
-
+﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.FacturacionModel>
 <h1>Lista de Facturaciones</h1>
 <p>
     <a asp-action="Create" class="btn btn-primary">Registrar Nueva Facturación</a>
 </p>
+
+<!-- Agregar sección para cargar Excel -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Cargar Documento de Facturación</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="ProcesarExcel" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" class="form-control-file" name="archivo" accept=".xlsx,.xls" required>
+            </div>
+            <button type="submit" class="btn btn-success">Procesar Documento</button>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -55,7 +70,7 @@
                 <td>@item.NumeroTiempo</td>
                 <td>@item.NumeroAlumnos</td>
                 <td>@item.FechaUFDia.ToShortDateString()</td>
-                <td>@item.ValorUFDia</td>
+                <td>@item.ValorUF</td>
                 <td>@item.ValorUFMesPractica</td>
                 <td>@item.ValorUF</td>
                 <td>@item.Subtotal</td>

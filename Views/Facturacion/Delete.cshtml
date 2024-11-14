@@ -1,23 +1,19 @@
 ﻿@model Gestion_Del_Presupuesto.Models.FacturacionModel
 
-@{
-    ViewData["Title"] = "Eliminar Facturación";
-}
-
 <h2>Eliminar Facturación</h2>
-
 <h3>¿Está seguro que desea eliminar este registro?</h3>
-
 <div>
     <h4>@Model.RazonSocial</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            RUT
-        </dt>
-        <dd class="col-sm-10">
-            @Model.RUT
-        </dd>
+        <dt class="col-sm-2">RUT</dt>
+        <dd class="col-sm-10">@Model.RUT</dd>
+
+        <dt class="col-sm-2">Institución</dt>
+        <dd class="col-sm-10">@Model.Institucion</dd>
+
+        <dt class="col-sm-2">Total a Pagar</dt>
+        <dd class="col-sm-10">@Model.TotalaPagar</dd>
     </dl>
 
     <form asp-action="Delete">
