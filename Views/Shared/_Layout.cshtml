@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <button class="btn btn-dark me-2" id="menu-toggle">Menu
+        <button class="btn btn-dark me-2" id="menu-toggle">
+            Menu
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">Gestión del Presupuesto de Campos Clínicos Universidad Central</a>
@@ -36,11 +38,9 @@
         </div>
 
         <ul class="nav flex-column p-2">
-
             <li class="nav-item">
                 <a class="nav-link" href="/">Inicio</a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Historial De Usuario" asp-action="Historial">Auditoría</a>
             </li>
@@ -53,7 +53,6 @@
                     <li><a class="dropdown-item" asp-controller="Convenio" asp-action="Papelera">Documento Certificación</a></li>
                 </ul>
             </li>
-           
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#">Cordinación <span class="dropdown-toggle-icon">▼</span></a>
                 <ul class="dropdown-menu">
@@ -70,7 +69,6 @@
                     <li><a class="dropdown-item" asp-controller="Devengado" asp-action="Index">Registro</a></li>
                 </ul>
             </li>
-           
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#">Documentos de Facturación <span class="dropdown-toggle-icon">▼</span></a>
                 <ul class="dropdown-menu">
@@ -108,6 +106,7 @@
         <p>&copy; 2024 - Gestión de Campos Clínicos Universidad Central</p>
     </footer>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
