@@ -112,6 +112,11 @@ namespace Gestion_Del_Presupuesto.Data
                .WithMany(c => c.Retribuciones)
                .HasForeignKey(r => r.ConvenioId)
                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<Rol>().HasData(
+                new Rol { Id_Rol = 1, Nombre = "Coordinador Campo Clínico Santiago", Permisos = "Gestionar campos clínicos en Santiago" },
+                new Rol { Id_Rol = 2, Nombre = "Coordinador Campo Clínico Coquimbo", Permisos = "Gestionar campos clínicos en Coquimbo" },
+                new Rol { Id_Rol = 3, Nombre = "Director", Permisos = "Administrar todas las funciones del sistema" });
         }
     }
 }
