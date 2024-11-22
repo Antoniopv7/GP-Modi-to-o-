@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Anton\\OneDrive\\Escritorio\\GP-main\\Gestion Del Presupuesto.csproj": {}
+    "C:\\Users\\Anton\\Desktop\\GP-main\\Gestion Del Presupuesto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Anton\\OneDrive\\Escritorio\\GP-main\\Gestion Del Presupuesto.csproj": {
+    "C:\\Users\\Anton\\Desktop\\GP-main\\Gestion Del Presupuesto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Anton\\OneDrive\\Escritorio\\GP-main\\Gestion Del Presupuesto.csproj",
+        "projectUniqueName": "C:\\Users\\Anton\\Desktop\\GP-main\\Gestion Del Presupuesto.csproj",
         "projectName": "Gestion Del Presupuesto",
-        "projectPath": "C:\\Users\\Anton\\OneDrive\\Escritorio\\GP-main\\Gestion Del Presupuesto.csproj",
+        "projectPath": "C:\\Users\\Anton\\Desktop\\GP-main\\Gestion Del Presupuesto.csproj",
         "packagesPath": "C:\\Users\\Anton\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Anton\\OneDrive\\Escritorio\\GP-main\\obj\\",
+        "outputPath": "C:\\Users\\Anton\\Desktop\\GP-main\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\Anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,8 +42,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -57,19 +62,27 @@
               "target": "Package",
               "version": "[1.11.67, )"
             },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
             "Microsoft.AspNetCore.Mvc.TagHelpers": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.8, )"
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.8, )"
+              "version": "[8.0.10, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -99,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
