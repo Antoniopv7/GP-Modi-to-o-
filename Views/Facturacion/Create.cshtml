@@ -2,221 +2,132 @@
 
 <h1>Registrar Nueva Facturación</h1>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5>Cargar Documento de Facturación</h5>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <input type="file" class="form-control-file" id="excelFile" accept=".xlsx,.xls">
-                </div>
-            </div>
-        </div>
-
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="RazonSocial" class="control-label"></label>
-                <input asp-for="RazonSocial" class="form-control" />
-                <span asp-validation-for="RazonSocial" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RUT" class="control-label"></label>
-                <input asp-for="RUT" class="form-control" />
-                <span asp-validation-for="RUT" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Giro" class="control-label"></label>
-                <input asp-for="Giro" class="form-control" />
-                <span asp-validation-for="Giro" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
-                <span asp-validation-for="Telefono" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ReceptorDocumento" class="control-label"></label>
-                <input asp-for="ReceptorDocumento" class="form-control" />
-                <span asp-validation-for="ReceptorDocumento" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Cargo" class="control-label"></label>
-                <input asp-for="Cargo" class="form-control" />
-                <span asp-validation-for="Cargo" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TelefonoReceptor" class="control-label"></label>
-                <input asp-for="TelefonoReceptor" class="form-control" />
-                <span asp-validation-for="TelefonoReceptor" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="CorreoElectronico" class="control-label"></label>
-                <input asp-for="CorreoElectronico" class="form-control" />
-                <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Sede" class="control-label"></label>
-                <input asp-for="Sede" class="form-control" />
-                <span asp-validation-for="Sede" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Carrera" class="control-label"></label>
-                <input asp-for="Carrera" class="form-control" />
-                <span asp-validation-for="Carrera" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NivelFormacion" class="control-label"></label>
-                <input asp-for="NivelFormacion" class="form-control" />
-                <span asp-validation-for="NivelFormacion" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Institucion" class="control-label"></label>
-                <input asp-for="Institucion" class="form-control" />
-                <span asp-validation-for="Institucion" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TiempoPractica" class="control-label"></label>
-                <input asp-for="TiempoPractica" class="form-control" />
-                <span asp-validation-for="TiempoPractica" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NumeroTiempo" class="control-label"></label>
-                <input asp-for="NumeroTiempo" class="form-control" />
-                <span asp-validation-for="NumeroTiempo" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NumeroAlumnos" class="control-label"></label>
-                <input asp-for="NumeroAlumnos" class="form-control" />
-                <span asp-validation-for="NumeroAlumnos" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ValorUFMesPractica" class="control-label"></label>
-                <input asp-for="ValorUFMesPractica" class="form-control" onchange="calcularTotales()" />
-                <span asp-validation-for="ValorUFMesPractica" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FechaUFDia" class="control-label"></label>
-                <input asp-for="FechaUFDia" type="date" class="form-control" onchange="obtenerUF(this)" />
-                <span asp-validation-for="FechaUFDia" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ValorUF" class="control-label"></label>
-                <input asp-for="ValorUF" class="form-control" readonly />
-                <span asp-validation-for="ValorUF" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Subtotal" class="control-label"></label>
-                <input asp-for="Subtotal" class="form-control" readonly />
-                <span asp-validation-for="Subtotal" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="NetoUF" class="control-label"></label>
-                <input asp-for="NetoUF" class="form-control" readonly />
-                <span asp-validation-for="NetoUF" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="TotalaPagar" class="control-label"></label>
-                <input asp-for="TotalaPagar" class="form-control" readonly />
-                <span asp-validation-for="TotalaPagar" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
-            </div>
-        </form>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="RazonSocial">Razón Social</label>
+        <input asp-for="RazonSocial" class="form-control" />
+        <span asp-validation-for="RazonSocial" class="text-danger"></span>
     </div>
-</div>
+    <div class="form-group">
+        <label for="RUT">RUT</label>
+        <input asp-for="RUT" class="form-control" />
+        <span asp-validation-for="RUT" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Giro">Giro</label>
+        <input asp-for="Giro" class="form-control" />
+        <span asp-validation-for="Giro" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Direccion">Dirección</label>
+        <input asp-for="Direccion" class="form-control" />
+        <span asp-validation-for="Direccion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Telefono">Teléfono</label>
+        <input asp-for="Telefono" class="form-control" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="ReceptorDocumento">Receptor de Documento</label>
+        <input asp-for="ReceptorDocumento" class="form-control" />
+        <span asp-validation-for="ReceptorDocumento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Cargo">Cargo</label>
+        <input asp-for="Cargo" class="form-control" />
+        <span asp-validation-for="Cargo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="TelefonoReceptor">Teléfono de Receptor</label>
+        <input asp-for="TelefonoReceptor" class="form-control" />
+        <span asp-validation-for="TelefonoReceptor" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="CorreoElectronico">Correo Electrónico</label>
+        <input asp-for="CorreoElectronico" class="form-control" />
+        <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Sede">Sede</label>
+        <input asp-for="Sede" class="form-control" />
+        <span asp-validation-for="Sede" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Carrera">Carrera</label>
+        <input asp-for="Carrera" class="form-control" />
+        <span asp-validation-for="Carrera" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="NivelFormacion">Nivel Formación</label>
+        <input asp-for="NivelFormacion" class="form-control" />
+        <span asp-validation-for="NivelFormacion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="TiempoPractica">Tiempo de Práctica</label>
+        <input asp-for="TiempoPractica" class="form-control" />
+        <span asp-validation-for="TiempoPractica" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="NumeroTiempo">N° mes/día/semana/hora</label>
+        <input asp-for="NumeroTiempo" class="form-control" />
+        <span asp-validation-for="NumeroTiempo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="NumeroAlumnos">N° Alumnos</label>
+        <input asp-for="NumeroAlumnos" class="form-control" />
+        <span asp-validation-for="NumeroAlumnos" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="ValorUFMesPractica">Valor 3 UF mes/práctica profesional</label>
+        <input asp-for="ValorUFMesPractica" class="form-control" />
+    </div>
+    <form method="get" asp-action="BuscarUF">
+        <div class="form-group">
+            <label for="FechaSeleccionada">Fecha UF Día</label>
+            <input type="date" id="fechaSeleccionada" class="form-control" onchange="obtenerUF(this)" />
+        </div>
+    </form>
+    <div class="form-group">
+        <label for="valorUF">Valor UF</label>
+        <input type="text" class="form-control" id="valorUF" placeholder="" readonly />
+    </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <div class="form-group">
+        <label for="Subtotal">Subtotal</label>
+        <input asp-for="Subtotal" class="form-control" />
+        <span asp-validation-for="Subtotal" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+<script>
+    async function obtenerUF(fechaInput) {
+        const fechaSeleccionada = fechaInput.value;  // Fecha seleccionada YYYY-MM-DD
+        const valorUFInput = document.getElementById('valorUF');  
+
+        if (fechaSeleccionada) {
+            const valorUF = await buscarUF(fechaSeleccionada);  
+            valorUFInput.value = valorUF;  
+        }
     }
 
-    <script>
-        document.getElementById('excelFile').addEventListener('change', async function(e) {
-            const file = e.target.files[0];
-            const formData = new FormData();
-            formData.append('archivo', file);
+    async function buscarUF(fechaSeleccionada) {
+        const url = `/Facturacion/BuscarUF?SelectedDate=${fechaSeleccionada}`;
 
-            try {
-                const response = await fetch('/Facturacion/ProcesarExcel', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('NumeroAlumnos').value = data.numeroAlumnos;
-                    document.getElementById('NumeroTiempo').value = data.numeroTiempo;
-                    document.getElementById('Institucion').value = data.institucion;
-                    calcularTotales();
-                }
-            } catch (error) {
-                console.error('Error al procesar el archivo:', error);
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                return data.valorUF || 0;  
+            } else {
+                console.error("Error al obtener el valor de la UF:", response.statusText);
+                return 0;
             }
-        });
-
-        function calcularTotales() {
-            const valorUFMesPractica = parseFloat(document.getElementById('ValorUFMesPractica').value) || 0;
-            const numeroTiempo = parseFloat(document.getElementById('NumeroTiempo').value) || 0;
-            const numeroAlumnos = parseFloat(document.getElementById('NumeroAlumnos').value) || 0;
-            const valorUF = parseFloat(document.getElementById('ValorUF').value) || 0;
-
-            const subtotal = valorUFMesPractica * numeroTiempo * numeroAlumnos;
-            document.getElementById('Subtotal').value = subtotal.toFixed(2);
-
-            const netoUF = valorUF > 0 ? subtotal / valorUF : 0;
-            document.getElementById('NetoUF').value = netoUF.toFixed(2);
-
-            document.getElementById('TotalaPagar').value = subtotal.toFixed(2);
+        } catch (error) {
+            console.error("Error de conexión:", error);
+            return 0;
         }
-
-        async function obtenerUF(fechaInput) {
-            const fechaSeleccionada = fechaInput.value;
-            if (fechaSeleccionada) {
-                const url = `/Facturacion/BuscarUF?SelectedDate=${fechaSeleccionada}`;
-                try {
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        const data = await response.json();
-                        document.getElementById('ValorUF').value = data.valorUF;
-                        calcularTotales();
-                    }
-                } catch (error) {
-                    console.error('Error al obtener el valor UF:', error);
-                }
-            }
-        }
-    </script>
-}
+    }
+</script>

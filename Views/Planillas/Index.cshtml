@@ -1,18 +1,68 @@
 ﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.PlanillasModel>
 
-<h1>Lista de Planillas</h1>
+<h1>Listado De Estudiantes</h1>
+
+<div>
+    <!-- Filtros para las primeras 5 columnas -->
+    <form method="get" asp-action="Index">
+        <div class="row mb-3">
+            <div class="col-md-2">
+                <label for="institucion">Convenio/Institución</label>
+                <input type="text" id="institucion" name="institucion" value="@ViewBag.Institucion" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="centroasociado">Centro Asociado</label>
+                <input type="text" id="centroasociado" name="centroasociado" value="@ViewBag.centroasociado" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="sede">Sede</label>
+                <input type="text" id="asignatura" name="asignatura" value="@ViewBag.Sede" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="carrera">Carrera</label>
+                <input type="text" id="carrera" name="carrera" value="@ViewBag.Carrera" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="asignatura">Asignatura</label>
+                <input type="text" id="asignatura" name="asignatura" value="@ViewBag.Asignatura" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="nombre">Nombre Estudiante</label>
+                <input type="text" id="nombre" name="nombre" value="@ViewBag.Nombre" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="rut">Rut Estudiante</label>
+                <input type="text" id="rut" name="rut" value="@ViewBag.Rut" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <label for="año">Año</label>
+                <input type="date" id="año" name="año" value="@ViewBag.Año" class="form-control" />
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+
+        </div>
+    </form>
+</div>
 <div>
     <form method="get">
         <p>
             <a asp-action="Upload" class="btn btn-secondary">Subir Planillas</a>
-        </p>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-success">Exportar Año</button>
+            </div>
+        </p
+
     </form>
+
 </div>
 <table class="table">
     <thead>
         <tr>
             <th>Asignatura</th>
             <th>Institución</th>
+            <th>Carrera</th>
             <th>Nombre</th>
             <th>Rut</th>
             <th>Fecha Inicio</th>
@@ -29,6 +79,7 @@
             <tr>
                 <td>@item.Asignatura</td>
                 <td>@item.Institución</td>
+                <td>@item.Carrera.Nombre</td>
                 <td>@item.Nombre</td>
                 <td>@item.Rut</td>
                 <td>@item.Fecha_Inicio.ToShortDateString()</td>

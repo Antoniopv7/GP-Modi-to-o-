@@ -21,11 +21,12 @@
                 <div class="form-group mb-4">
                     <label asp-for="Tipo_Convenio"></label>
                     <select asp-for="Tipo_Convenio" class="form-control">
-                        <option value="">Selecciona un Tipo</option>
-                        @foreach (var tipo in ViewBag.TiposConvenio)
-                        {
-                            <option value="@tipo" selected="@(Model.Tipo_Convenio == tipo ? "selected" : null)">@tipo</option>
-                        }
+                        <option value="HOSPITALES / CLINICAS">HOSPITALES / CLINICAS</option>
+                        <option value="ATENCION PRIMARIA">ATENCION PRIMARIA</option>
+                        <option value="Hogares / C.Educacionales">Hogares / C.Educacionales</option>
+                        <option value="LAB/IMAGEN/OFTA">LAB/IMAGEN/OFTA</option>
+                        <option value="CENTROS Y FUNDACIONES">CENTROS Y FUNDACIONES</option>
+                        <option value="CASINOS">CASINOS</option>
                     </select>
                 </div>
                 <div class="form-group mb-4">
@@ -60,62 +61,86 @@
                     <input type="checkbox" asp-for="RenovacionAutomatica" id="RenovacionAutomatica" />
                     <label for="RenovacionAutomatica">Renovable automáticamente por períodos iguales o sucesivos de un año</label>
                 </div>
+                <div class="form-check mb-4">
+                    <input type="checkbox" asp-for="Adendum" class="form-check-input" id="Adendumn" />
+                    <label asp-for="Adendum" class="form-check-label">Sub Contratos Adendumn</label>
+                </div>
+                <div class="card mb-4" id="adendumCard" style="display: none;">
+                    <div class="card-header">
+                        <h4 class="card-title">Agregar Adendum</h4>
+                        <div class="col-md-6">
+                            <label>Observaciones</label>
+                            <input asp-for="Retribuciones[0].DetalleOtrosGastos" class="form-control" />
+
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Fecha_Termino" class="form-label">Modificar Fecha Ademdum</label>
+                            <input asp-for="Fecha_Termino" type="date" class="form-control" />
+                            <span asp-validation-for="Fecha_Termino" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Retribuciones -->
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <h4 class="mb-3 text-center">Retribuciones</h4>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div id="retribucionesContainer">
-                            @for (int i = 0; i < Model.Retribuciones.Count; i++)
-                            {
-                                <div class="form-group retribucion-item mt-3">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2">
-                                            <label>Tipo de Retribución</label>
-                                            <select asp-for="Retribuciones[@i].Tipo_Retribucion" class="form-control">
-                                                <option value="">Selecciona un Tipo</option>
-                                                @foreach (var tipo in ViewBag.TiposRetribucion)
-                                                {
-                                                    <option value="@tipo" selected="@(Model.Retribuciones[i].Tipo_Retribucion == tipo ? "selected" : null)">@tipo</option>
-                                                }
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label asp-for="Retribuciones[@i].UFTotal">Cantidad UF</label>
-                                            <input asp-for="Retribuciones[@i].UFTotal" class="form-control" />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label asp-for="Retribuciones[@i].CantPesos">Cantidad Pesos</label>
-                                            <input asp-for="Retribuciones[@i].CantPesos" class="form-control" />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label>Periodo</label>
-                                            <select asp-for="Retribuciones[@i].Periodo" class="form-control">
-                                                <option value="Hora">Hora</option>
-                                                <option value="Diario">Diario</option>
-                                                <option value="Semanal">Semanal</option>
-                                                <option value="Mensual">Mensual</option>
-                                                <option value="Anual">Anual</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label asp-for="Retribuciones[@i].DetalleOtrosGastos">Observaciones</label>
-                                            <input asp-for="Retribuciones[@i].DetalleOtrosGastos" class="form-control" />
-                                        </div>
-                                        <div class="col-md-2 d-flex align-items-end">
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarElemento(this)">Eliminar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title">Retribuciones</h4>
+            </div>
+            <div class="card-body">
+                <div id="retribucionesContainer">
+                    <div class="form-group retribucion-item mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Tipo de Retribución</label>
+                                <select asp-for="Retribuciones[0].Tipo_Retribucion" class="form-control">
+                                    <option value="">Selecciona un Tipo</option>
+                                    @foreach (var tipo in ViewBag.TiposRetribucion)
+                                    {
+                                        <option value="@tipo">@tipo</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Monto en UF</label>
+                                <input asp-for="Retribuciones[0].Monto" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Cantidad en Pesos</label>
+                                <input asp-for="Retribuciones[0].CantPesos" class="form-control" />
+                            </div>
+                            <div class="col-md-3">
+                                <label>Periodo</label>
+                                <select name="Retribuciones[0].Periodo" class="form-control">
+                                    <option value="Hora">por Hora</option>
+                                    <option value="Diario">por Día</option>
+                                    <option value="Semanal">por Semana</option>
+                                    <option value="Mensual">por Mes</option>
+                                    <option value="Anual">por Año</option>
+                                </select>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-primary btn-sm mt-3" onclick="agregarElemento()">Agregar Retribución</button>
+                        <div class="row mt-2">
+                            <div class="col-md-3">
+                                <label>Tipo de Práctica</label>
+                                <select name="Retribuciones[0].Tipo_Practica" class="form-control">
+                                    <option value="Práctica Profesional">Práctica Profesional</option>
+                                    <option value="Práctica Curricular">Práctica Curricular</option>
+                                    <option value="Todas las Prácticas">Todas las Prácticas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Observaciones</label>
+                                <input asp-for="Retribuciones[0].DetalleOtrosGastos" class="form-control" />
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="button" class="btn btn-danger" onclick="eliminarElemento(this)">Eliminar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <button type="button" class="btn btn-primary mt-3" onclick="agregarElemento()">Agregar Retribución</button>
+                <button type="submit" class="btn btn-primary btn-lg">Guardar Cambios</button>
             </div>
         </div>
 
@@ -169,3 +194,53 @@
         </div>
     </form>
 </div>
+
+<script> 
+
+    function agregarElemento() {
+    const container = document.getElementById('retribucionesContainer');
+    const template = document.querySelector('.retribucion-item').cloneNode(true);
+
+    // Limpiar los valores de los inputs en el nuevo elemento
+    template.querySelectorAll('input, select').forEach(input => {
+        input.value = ""; // Limpiar el valor
+    });
+
+    container.appendChild(template); // Agregar al contenedor
+    reindexElements('.retribucion-item', 'input, select'); // Reindexar elementos
+    }
+
+    function agregarCentroSalud() {
+    const container = document.getElementById('centrosSaludContainer');
+    const template = document.querySelector('.centro-item').cloneNode(true);
+
+    // Limpiar los valores de los inputs en el nuevo elemento
+    template.querySelectorAll('input').forEach(input => {
+        input.value = ""; // Limpiar el valor
+    });
+
+    container.appendChild(template); // Agregar al contenedor
+    reindexElements('.centro-item', 'input'); // Reindexar elementos
+    }
+
+    function eliminarElemento(button) {
+        const item = button.closest('.retribucion-item');
+        item.remove(); // Eliminar el elemento
+        reindexElements('.retribucion-item', 'input, select'); // Reindexar elementos
+    }
+
+    function eliminarCentroSalud(button) {
+        const item = button.closest('.centro-item');
+        item.remove(); // Eliminar el elemento
+        reindexElements('.centro-item', 'input'); // Reindexar elementos
+    }
+    function reindexElements(containerSelector, inputSelector) {
+        const items = document.querySelectorAll(containerSelector);
+        items.forEach((item, index) => {
+            item.querySelectorAll(inputSelector).forEach(input => {
+                const name = input.name.replace(/\[\d+\]/, `[${index}]`); // Ajustar índice
+                input.name = name;
+            });
+        });
+    }
+</script>

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Historial de Transacciones";
 }
 
-<h2>Historial de Transacciones</h2>
+<h2>Historial de Usuario</h2>
 
 <table class="table table-bordered">
     <thead>
@@ -18,7 +18,9 @@
         @foreach (var actividad in Model)
         {
             <tr>
-                <td>@actividad.Usuarios.Nombre</td>
+                <td>@actividad.Usuarios.Id_Usuario</td>
+                <td>@User.Identity.Name</td>
+                <td>@actividad.Roles.NombreRol</td>
                 <td>@actividad.Accion</td>
                 <td>@actividad.Fecha.ToShortDateString()</td>
             </tr>

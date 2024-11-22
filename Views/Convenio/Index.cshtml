@@ -9,7 +9,7 @@
             <th>Nombre Institución</th>
             <th>Tipo</th>
             <th>Sede</th>
-            <th>Acciones</th> <!-- Mantén esta columna solo si tienes acciones como Editar o Eliminar -->
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +21,12 @@
                 <td>@convenio.Tipo_Convenio</td>
                 <td>@convenio.Sede</td>
                 <td>
-                    <!-- Botones de acción como Editar o Eliminar -->
+                    <!-- Botón Editar -->
                     <a asp-action="Edit" asp-route-id="@convenio.Id_Convenio" class="btn btn-secondary">Editar</a>
-                    <a asp-action="Details" asp-route-id="@convenio.Id_Convenio" class="btn btn-info btn-sm">Detalles</a>
-                    <a href="#" onclick="openDeleteModal('@Url.Action("Delete", "Convenio", new { id = convenio.Id_Convenio })')" class="btn btn-danger">Eliminar</a>
+                    <!-- Botón Detalles -->
+                    <a asp-action="Details" asp-route-id="@convenio.Id_Convenio" class="btn btn-info">Detalles</a>
+                    <!-- Botón Eliminar que abre el modal -->
+                    <button class="btn btn-danger" onclick="openDeleteModal('@Url.Action("Delete", "Convenio", new { id = convenio.Id_Convenio })')">Eliminar</button>
                 </td>
             </tr>
         }
@@ -33,31 +35,38 @@
 
 <a class="btn btn-primary" asp-action="Create">Registrar convenio</a>
 
-<!-- Modal de confirmación de eliminación -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal de confirmación para eliminar con documento de término -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro que desea eliminar este convenio? Podrá restaurarlo más tarde desde la papelera.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <a id="deleteConfirmButton" href="#" class="btn btn-danger">Eliminar</a>
-            </div>
+            <form asp-action="Delete" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Eliminar Convenio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminar este convenio? Debe adjuntar un documento de término para continuar.</p>
+                    <input type="hidden" id="deleteConvenioId" name="id" />
+                    <div class="form-group">
+                        <label for="documentoTermino">Documento de Término</label>
+                        <input type="file" class="form-control" id="documentoTermino" name="documentoTermino" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Script para abrir el modal de confirmación -->
 <script>
     function openDeleteModal(deleteUrl) {
-        document.getElementById('deleteConfirmButton').setAttribute('href', deleteUrl);
+        // Establecer la acción del formulario
+        document.getElementById('deleteConvenioId').value = deleteUrl.split('/').pop();
         $('#confirmDeleteModal').modal('show');
     }
 </script>

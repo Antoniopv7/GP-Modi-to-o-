@@ -1,35 +1,109 @@
 ﻿@model IEnumerable<Gestion_Del_Presupuesto.Models.Devengado>
 
-<h1>Lista de Devengados</h1>
-<p>
+<h1 class="text-primary text-center mt-4">Lista de Devengados</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
     <a asp-action="Create" class="btn btn-primary">Registrar Nuevo Devengado</a>
-</p>
-<table class="table">
-    <thead>
+    <form asp-action="CalcularDevengado" method="post" class="d-inline-block">
+        <input type="hidden" name="id" value="Id_Devengado" />
+        <button type="submit" class="btn btn-warning">Calcular Devengado</button>
+    </form>
+</div>
+
+<table class="table table-hover table-striped shadow-sm">
+    <thead class="bg-primary text-white">
         <tr>
             <th>Carrera</th>
             <th>Centro de Costo</th>
             <th>Ítem Presupuestario</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
-            <th>Acciones</th>
+            <th class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if (!Model.Any())
         {
             <tr>
-                <td>@item.Carrera</td>
-                <td>@item.CentroCosto</td>
-                <td>@item.Itempresupuestario</td>
-                <td>@item.FechaInicio.ToShortDateString()</td>
-                <td>@item.FechaFin.ToShortDateString()</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id_Devengado" class="btn btn-warning">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Id_Devengado" class="btn btn-info">Detalles</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id_Devengado" class="btn btn-danger">Eliminar</a>
-                </td>
+                <td colspan="6" class="text-center text-secondary">No hay devengados registrados.</td>
             </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Carrera</td>
+                    <td>@item.CentroCosto</td>
+                    <td>@item.Itempresupuestario</td>
+                    <td>@item.FechaInicio.ToShortDateString()</td>
+                    <td>@item.FechaFin.ToShortDateString()</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id_Devengado" class="btn btn-sm btn-warning me-1">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Id_Devengado" class="btn btn-sm btn-info me-1">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id_Devengado" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+    }
+
+    .btn {
+        transition: all 0.3s ease;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .btn-warning {
+        background-color: #ffa500;
+        border-color: #ffa500;
+    }
+
+        .btn-warning:hover {
+            background-color: #e59400;
+            border-color: #cc8400;
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #117a8b;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+</style>
