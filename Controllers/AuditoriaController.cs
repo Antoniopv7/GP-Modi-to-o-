@@ -20,7 +20,7 @@ namespace Gestion_Del_Presupuesto.Controllers
             // Como ejemplo, se crea una lista de actividades con datos ficticios.
             var historial = new List<Historial_Actividad>
             {
-                new Historial_Actividad { Usuarios = new Usuario { Nombre = "Admin" }, Accion = "Creación de registro", Fecha = System.DateTime.Now },
+                new Historial_Actividad { Usuarios = new Usuario { Nombre = "Marcela Riveros" }, Accion = "Creación de registro", Fecha = System.DateTime.Now },
                 new Historial_Actividad { Usuarios = new Usuario { Nombre = "User1" }, Accion = "Modificación de registro", Fecha = System.DateTime.Now.AddDays(-1) },
                 new Historial_Actividad { Usuarios = new Usuario { Nombre = "User2" }, Accion = "Eliminación de registro", Fecha = System.DateTime.Now.AddDays(-2) }
             };

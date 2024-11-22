@@ -23,11 +23,40 @@ namespace Gestion_Del_Presupuesto.Controllers
         }
 
         // GET: Planillas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string asignatura, string institucion, string carrera, string nombre, string rut)
         {
-            var planillas = await _context.Planillas.Include(p => p.Estudiante).ToListAsync();
+            var planillasQuery = _context.Planillas.Include(p => p.Estudiante).AsQueryable();
+
+            // Aplicar filtros
+            if (!string.IsNullOrWhiteSpace(asignatura))
+            {
+                planillasQuery = planillasQuery.Where(p => p.Asignatura.Contains(asignatura));
+            }
+
+            if (!string.IsNullOrWhiteSpace(institucion))
+            {
+                planillasQuery = planillasQuery.Where(p => p.Institución.Contains(institucion));
+            }
+
+            if (!string.IsNullOrWhiteSpace(carrera))
+            {
+                planillasQuery = planillasQuery.Where(p => p.Carrera.Nombre.Contains(carrera));
+            }
+
+            if (!string.IsNullOrWhiteSpace(nombre))
+            {
+                planillasQuery = planillasQuery.Where(p => p.Nombre.Contains(nombre));
+            }
+
+            if (!string.IsNullOrWhiteSpace(rut))
+            {
+                planillasQuery = planillasQuery.Where(p => p.Rut.ToString().Contains(rut));
+            }
+
+            var planillas = await planillasQuery.ToListAsync();
             return View(planillas);
         }
+
 
         // GET: Planillas/Details/5
         public async Task<IActionResult> Details(int? id)

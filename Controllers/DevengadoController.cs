@@ -153,5 +153,25 @@ namespace Gestion_Del_Presupuesto.Controllers
         {
             return _context.Devengados.Any(e => e.Id_Devengado == id);
         }
+        [HttpPost]
+        public async Task<IActionResult> CalcularDevengado(int id)
+        {
+            // Recuperar la instancia de Devengado desde la base de datos
+            var devengado = await _context.Devengados.FindAsync(id);
+            if (devengado == null)
+            {
+                return NotFound("Devengado no encontrado");
+            }
+
+            // Llamar al método CalcularDevengado
+            var totalDevengado = devengado.CalcularDevengado();
+
+            // Actualizar el valor en la base de datos (si es necesario)
+            devengado.TotalGastoDevengadoGeneradoporEstudiantes = totalDevengado;
+            _context.Update(devengado);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
     }
 }

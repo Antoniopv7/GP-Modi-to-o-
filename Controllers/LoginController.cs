@@ -1,19 +1,17 @@
-﻿using Gestion_Del_Presupuesto.Data;
-using Gestion_Del_Presupuesto.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Gestion_Del_Presupuesto.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LoginController(ApplicationDbContext context)
+        public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
-            _context = context;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         // GET: LoginController
@@ -25,50 +23,58 @@ namespace Gestion_Del_Presupuesto.Controllers
         // POST: LoginController/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(string nombreUsuario, string contraseña)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            // Buscar el usuario en la base de datos con su Rol incluido
-            var usuario = _context.Usuarios
-                .Include(u => u.Rol)  // Incluir la relación con el Rol
-                .FirstOrDefault(u => u.Nombre == nombreUsuario && u.Contraseña == contraseña);
-
-            if (usuario != null)
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                // Si el usuario existe, guardamos los datos en la sesión
-                HttpContext.Session.SetString("NombreUsuario", usuario.Nombre);
-                HttpContext.Session.SetString("RolUsuario", usuario.Rol.Nombre);  // Aquí usamos el nombre del rol
+                ViewBag.Error = "El email y la contraseña son obligatorios.";
+                return View("Index");
+            }
 
-                // Redirigir a la página principal después de iniciar sesión
+            var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
                 return RedirectToAction("Index", "Home");
             }
 
-            // Si las credenciales son incorrectas, mostrar mensaje de error
-            ViewBag.Error = "Nombre de usuario o contraseña incorrectos.";
+            if (result.IsLockedOut)
+            {
+                ViewBag.Error = "La cuenta está bloqueada. Intenta más tarde.";
+            }
+            else
+            {
+                ViewBag.Error = "Credenciales incorrectas.";
+            }
+
             return View("Index");
         }
 
         // GET: LoginController/Logout
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            // Limpiar la sesión
-            HttpContext.Session.Clear();
-
-            // Redirigir al login después de cerrar sesión
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
         }
 
-        // Método que permite acceder al nombre del usuario en el Navbar
+        // Método para obtener el nombre del usuario actual
         public IActionResult GetNombreUsuario()
         {
-            var nombreUsuario = HttpContext.Session.GetString("NombreUsuario");
+            var nombreUsuario = User.Identity?.Name;
             return Content(nombreUsuario ?? "Invitado");
         }
 
-        // Método que permite acceder al rol del usuario
-        public IActionResult GetRolUsuario()
+        // Método para obtener el rol del usuario actual
+        public async Task<IActionResult> GetRolUsuario()
         {
-            var rolUsuario = HttpContext.Session.GetString("RolUsuario");
-            return Content(rolUsuario ?? "Sin rol");
+            if (User.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                return Content("Sin rol");
+            }
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var roles = await _userManager.GetRolesAsync(user);
+            return Content(roles.FirstOrDefault() ?? "Sin rol");
         }
     }
 }
