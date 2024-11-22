@@ -7,6 +7,8 @@ namespace Gestion_Del_Presupuesto.Models
         
         [Key]
         public int Id_AuditoriaDeTransacciones { get; set; }
+
+
         public string Sede { get; set; }
         public string Tipo_Costo { get; set; }
         public int Monto { get; set; }

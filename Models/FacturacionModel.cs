@@ -58,9 +58,6 @@ namespace Gestion_Del_Presupuesto.Models
         [Display(Name = "Nivel Formación")]
         public string NivelFormacion { get; set; }
 
-        [Required]
-        [Display(Name = "Institución")]
-        public string Institucion { get; set; }
 
         [Required]
         [Display(Name = "Tiempo de práctica")]
@@ -99,10 +96,12 @@ namespace Gestion_Del_Presupuesto.Models
 
         public int Id_IndicadorEco { get; set; }
         public ConvenioModel? Convenios { get; set; }
-        public PlanillasModel? Planillas { get; set; }
+
+        public CarreraModel? Carreras { get; set; }
         public ObsData? ObsvalorUF { get; set; }
         public IndicadorEconomico? Indicador { get; set; }
 
+        public ICollection<PlanillasModel> Planillas { get; set; } = new List<PlanillasModel>();
 
     }
 }

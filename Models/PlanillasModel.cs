@@ -8,34 +8,35 @@ namespace Gestion_Del_Presupuesto.Models
     {
         [Key]
         public int Id_Planillas { get; set; }
-
         public string Asignatura { get; set; }
-
-        [Display(Name = "Nombre Institución")]
         public string Institución { get; set; }
-
-        [Display(Name = "Nombre Completo")]
         public string Nombre { get; set; }
+        public string Rut { get; set; }
 
-        [Display(Name = "Rut Estudiantes")]
-        public int  Rut { get; set; }
-
-        public DateTime Fecha_Inicio { get; set; } = DateTime.Now;
-
-        public required DateTime Fecha_Termino { get; set; } = DateTime.Now;
-
-
-        [Display(Name = "Cantidad de Horas")]
-        public double CantidadHoras {  get; set; }
-
+        public DateTime Fecha_Inicio { get; set; }
+        public DateTime Fecha_Termino { get; set; }
+        public double CantidadHoras { get; set; }
         public int CantDias { get; set; }
-
         public string Observaciones { get; set; }
-        public int Id_Estudiante {  get; set; }
 
+        // Relación con Estudiante
+        public int Id_Estudiante { get; set; }
         public virtual Estudiante Estudiante { get; set; }
 
+        // Relación con Carrera
+        public int CarreraId { get; set; }
+        public virtual CarreraModel Carrera { get; set; }
 
-        
+        // Relación con Facturación
+        public int FacturacionId { get; set; }
+        public virtual FacturacionModel Facturacion { get; set; }
+
+        // Relación con Devengado
+        public virtual Devengado Devengado { get; set; }
+
+        // Relación con Indicador Económico (ejemplo: valor UF)
+        public int Id_IndicadorEco { get; set; }
+        public virtual IndicadorEconomico Indicador { get; set; }
     }
+
 }

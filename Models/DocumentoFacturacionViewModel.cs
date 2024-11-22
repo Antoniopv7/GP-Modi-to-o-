@@ -20,8 +20,5 @@ namespace Gestion_Del_Presupuesto.Models
         public decimal TipoDocumento { get; set;}
 
 
-
-
-
     }
 }

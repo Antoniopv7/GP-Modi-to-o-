@@ -15,6 +15,8 @@ namespace Gestion_Del_Presupuesto.Models
         // Clave foránea hacia Usuario
         public int Id_Usuario { get; set; }
 
+        public virtual Rol Roles { get; set; }
+
         // Propiedad de navegación hacia Usuario
         [ForeignKey("Id_Usuario")]
         public virtual Usuario Usuarios { get; set; }
