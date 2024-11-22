@@ -1837,9 +1837,10 @@
 }
 
 .py-5 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+    padding-top: 12.25rem !important;
+    padding-bottom: 0.25rem !important;
 }
+
 
 .pt-0 {
   padding-top: 0 !important;

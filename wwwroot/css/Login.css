@@ -29,3 +29,49 @@
     width: 80px;
     height: 80px;
 }
+body {
+    background: linear-gradient(to right, #14034a, #2575fc);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.login-box {
+    background: #fff;
+    border-radius: 30px;
+    padding: 30px;
+    width: 100%;
+    max-width: 430px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+    .login-box h2 {
+        color: #333;
+    }
+
+.btn-primary {
+    background: #14034a;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background: #2575fc;
+    }
+
+.form-label {
+    color: #000000;
+}
+
+.alert-danger {
+    font-size: 0.9rem;
+}
+
+a {
+    color: #000000;
+}
+
+    a:hover {
+        color: #2575fc;
+    }
